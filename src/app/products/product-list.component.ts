@@ -8,6 +8,7 @@ import { ProductService } from '../../api/products/product.service';
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+    errorMessage: string;
     // tslint:disable:no-inferrable-types
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
@@ -29,6 +30,7 @@ export class ProductListComponent implements OnInit {
     _productService: ProductService;
     constructor(service: ProductService) {
         this._productService = service;
+        
     }
 
     onRatingClicked(message: string): void {
@@ -47,8 +49,11 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('On Init');
-        this.products = this._productService.getProducts();
-        this.filteredProducts = this.products;
-        this.listFilter = 'cart';
+        this._productService.getProducts()
+            .subscribe(products => {
+                this.products = products;
+                this.filteredProducts = products; 
+            },
+            error => this.errorMessage = <any> error);            
     }
 }
