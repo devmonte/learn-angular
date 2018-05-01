@@ -3,7 +3,6 @@ import { IProduct } from './product';
 import { ProductService } from '../../api/products/product.service';
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: 'pm-products',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
